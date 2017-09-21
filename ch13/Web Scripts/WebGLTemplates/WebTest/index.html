@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+<title>Unity WebGL Player | %UNITY_WEB_NAME%</title>
+<style>
+body { background-color: #333; }
+</style>
+
+<script src="%UNITY_WEBGL_LOADER_URL%"></script>
+<script>
+var gameInstance = UnityLoader.instantiate("gameContainer", "%UNITY_WEBGL_BUILD_URL%");
+
+function SendToUnity() {
+	gameInstance.SendMessage("JSListener", "RespondToBrowser", "Hello from the browser!");
+}
+</script>
+</head>
+
+<body>
+<div id="gameContainer" style="width: %UNITY_WIDTH%px; height: %UNITY_HEIGHT%px; margin: auto"></div>
+<br><input type="button" value="Send to Unity" onclick="SendToUnity();" />
+</body>
+</html>
+
+<!-- pre unity 5.6
+<!doctype html>
+<html lang="en-us">
+<head>
+<title>Unity WebGL Player | %UNITY_WEB_NAME%</title>
+<style>
+body { background-color: #333; }
+</style>
+</head>
+
+<body>
+<canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" height="%UNITY_HEIGHT%px" width="%UNITY_WIDTH%px"></canvas>
+%UNITY_WEBGL_LOADER_GLUE%
+
+<script>
+function SendToUnity() {
+	SendMessage("JSListener", "RespondToBrowser", "Hello from the browser!");
+}
+</script>
+<br><input type="button" value="Send to Unity" onclick="SendToUnity();" />
+</body>
+</html>
+-->
