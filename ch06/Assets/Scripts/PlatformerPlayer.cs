@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class PlatformerPlayer : MonoBehaviour {
-	public float speed = 250.0f;
+	public float speed = 4.5f;
 	public float jumpForce = 12.0f;
 
 	private BoxCollider2D _box;
@@ -18,7 +18,7 @@ public class PlatformerPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update() {
-		float deltaX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+		float deltaX = Input.GetAxis("Horizontal") * speed;
 		Vector2 movement = new Vector2(deltaX, _body.velocity.y);
 		_body.velocity = movement;
 
@@ -33,7 +33,7 @@ public class PlatformerPlayer : MonoBehaviour {
 			grounded = true;
 		}
 
-		_body.gravityScale = grounded && deltaX == 0 ? 0 : 1;
+		_body.gravityScale = (grounded && Mathf.Approximately(deltaX, 0)) ? 0 : 1;
 		if (grounded && Input.GetKeyDown(KeyCode.Space)) {
 			_body.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 		}
